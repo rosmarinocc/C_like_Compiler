@@ -1,0 +1,32 @@
+<Program> -> <DeclareString>
+<DeclareString> -> <DeclareString-option> <DeclareString> | [z]
+<DeclareString-option> -> <ParameterDeclare> [ID] [SEMI] | <FunctionDeclare> <FunDec> <Block>
+<ParameterDeclare> -> [INT]
+<FunctionDeclare> -> [VOID] | [INT] 
+<FunDec> -> [ID] <CreateFunTable_m> [LPAREN] <VarList> [RPAREN]
+<CreateFunTable_m> -> [z]
+<VarList> -> <ParamDec> [COMMA] <VarList> | <ParamDec> | [z]
+<ParamDec> -> <ParameterDeclare> [ID]
+<Block> -> [LBBRACKET] <DefList> <StmtList> [RBBRACKET]
+<DefList> -> <Def> <DefList> | [z]
+<Def> -> <ParameterDeclare> [ID] [SEMI]
+<StmtList> -> <Stmt> <StmtList> | [z]
+<Stmt> -> <AssignStmt> [SEMI] | <ReturnStmt> [SEMI] | <IfStmt> | <WhileStmt> | <CallStmt> [SEMI]
+<AssignStmt> -> [ID] [ASSIGN] <Exp>
+<Exp> -> <AddSubExp> | <Exp> <Relop> <AddSubExp>
+<AddSubExp> -> <Item> | <Item> [PLUS] <Item> | <Item> [SUB] <Item>
+<Item> -> <Factor> | <Factor> [MUL] <Factor> | <Factor> [DIV] <Factor>
+<Factor> -> [NUM] | [LPAREN] <Exp> [RPAREN] | [ID] | <CallStmt>
+<CallStmt> -> [ID] [LPAREN] <CallFunCheck> <Args> [RPAREN]
+<CallFunCheck> -> [z]
+<Args> -> <Exp> [COMMA] <Args> | <Exp> | [z]
+<ReturnStmt> -> [RETURN] <Exp> | [RETURN]
+<Relop> -> [GT] | [LT] | [GE] | [LE] | [EQ] | [NQ]
+<IfStmt> -> [IF] <IfStmt_m1> [LPAREN] <Exp> [RPAREN] <IfStmt_m2> <Block> <IfNext>
+<IfStmt_m1> -> [z]
+<IfStmt_m2> -> [z]
+<IfNext> -> [z] | <IfStmt_next>[ELSE] <Block>
+<IfStmt_next>-> [z]
+<WhileStmt> -> [WHILE] <WhileStmt_m1> [LPAREN] <Exp> [RPAREN] <WhileStmt_m2> <Block>
+<WhileStmt_m1> -> [z]
+<WhileStmt_m2> -> [z]

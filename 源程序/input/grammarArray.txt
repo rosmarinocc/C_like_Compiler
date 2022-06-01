@@ -1,0 +1,40 @@
+<Program> -> <Pro_m> <DeclareString>
+<Pro_m> -> [z]
+<DeclareString> -> <DeclareString-option> | <DeclareString-option> <DeclareString>
+<DeclareString-option> -> [INT] [ID] <ParameterContent> [SEMI] |  <FunctionDeclare> <FunDec> <Block>
+<ParameterContent> -> <ArrayDeclare> | [z]
+<ArrayDeclare> -> [LeftSquareBracket] [NUM] [RightSquareBracket] | [LeftSquareBracket] [NUM] [RightSquareBracket] <ArrayDeclare>
+<FunctionDeclare> -> [VOID] | [INT] 
+<FunDec> -> [ID] <CreateFunTable_m> [LPAREN] <VarContent> [RPAREN]
+<CreateFunTable_m> -> [z]
+<VarContent> -> <VarList> | [VOID] | [z]
+<VarList> -> [INT] [ID] [COMMA] <VarList> | [INT] [ID]
+<Block> -> [LBBRACKET] <DefList> <StmtList> [RBBRACKET]
+<DefList> -> <Def> [SEMI] <DefList> | [z]
+<Def> -> [INT] [ID] <ParameterContent>
+<StmtList> -> <Stmt> <StmtList> | <Stmt> 
+<Stmt> -> <AssignStmt> [SEMI] | <ReturnStmt> [SEMI] | <IfStmt> | <WhileStmt>     
+<AssignStmt> -> [ID] [ASSIGN] <Exp> | <Array> [ASSIGN] <Exp> 
+<Exp> -> <ANDExp> | <ANDExp> [OR] <Exp>
+<ANDExp> -> <NOTExp> | <NOTExp> [AND] <ANDExp>
+<NOTExp> -> [NOT] <SubExp> | <SubExp>
+<SubExp> -> <OPNUM> | <OPNUM> <Relop> <SubExp> 
+<Relop> -> [GT] | [LT] | [GE] | [LE] | [EQ] | [NQ]
+<OPNUM> -> <Item> | <Item> <OPERAT1> <OPNUM>
+<Item> -> <Factor> | <Factor> <OPERAT2> <Item>
+<OPERAT1> -> [PLUS] | [SUB] | [BinaryAnd] | [BinaryOr] | [BinaryXor]
+<OPERAT2> -> [MUL] | [DIV] 
+<Factor> -> [NUM] | [LPAREN] <Exp> [RPAREN] | [ID] | [ID] <CallStmt> | <Array> | [LPAREN] <AssignStmt> [RPAREN] 
+<Array> -> [ID] [LeftSquareBracket] <Exp> [RightSquareBracket] | <Array> [LeftSquareBracket] <Exp> [RightSquareBracket] 
+<CallStmt> -> [LPAREN] <CallFun> [RPAREN]
+<CallFun> -> [z] | <Args>
+<Args> -> <Exp> [COMMA] <Args> | <Exp> 
+<ReturnStmt> -> [RETURN] <Exp> | [RETURN]
+<WhileStmt> -> <WhileStmt_m1> [WHILE] [LPAREN] <Exp_stmt> [RPAREN] <WhileStmt_m2> <Block>
+<WhileStmt_m1> -> [z]
+<WhileStmt_m2> -> [z]
+<IfStmt> -> [IF] [LPAREN] <Exp_stmt> [RPAREN] <IfStmt_m> <Block> <IfNext>
+<Exp_stmt> -> <Exp>
+<IfStmt_m> -> [z]
+<IfNext> -> [z] | [ELSE] <IfStmt_next> <Block>
+<IfStmt_next>-> [z]
